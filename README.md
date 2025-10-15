@@ -61,29 +61,13 @@ This project enables energy consumption prediction based on weather and historic
 	source venv/bin/activate
 ```
 
-3.	Load data from the CSV file into MongoDB:
+3. Run setup script to resolve dependencies and start FastApi app
 
 ```bash
-	python setup/setup_mongo.py
+bash setup/setup_all.sh
 ```
-
-This will:
-
-	•	Create the energy_db database
-	
-	•	Create energy_measurements and energy_predictions collections if they don’t exist
-	
-	•	Clear all previous data from energy_measurements
-	
-	•	Insert data from data/smart_meter_data.csv
-
-4.	Start FastAPI + front-end:
-
-```bash
-   uvicorn fastapi_app.main:app --reload
-```
-
-4.	Open (Local adress)[http://127.0.0.1:8000/static/index.html] in a browser and test predictions.
+   
+5.	Open (Local adress)[http://127.0.0.1:8000/static/index.html] in a browser and test predictions.
 
 ## Running Spark Predictions
 	•	Spark models (RandomForest and LinearRegression) are already trained and located in the models/ folder
