@@ -37,7 +37,7 @@ This project enables energy consumption prediction based on weather and historic
 ## Prerequisites
 
 - Python 3.9+
-- Java 11+ (for Spark)
+- Java OpenJDK 17 (for Spark)
 - Apache Spark 3.4+  
 - MongoDB installed and running locally (`mongod`)
 - FastAPI (`pip install fastapi uvicorn`)
@@ -47,7 +47,7 @@ This project enables energy consumption prediction based on weather and historic
 
 ---
 
-## MongoDB Setup and CSV Data Import
+## Project Setup
 
 1. Start MongoDB locally:
 
@@ -64,11 +64,11 @@ This project enables energy consumption prediction based on weather and historic
 3. Run setup script to resolve dependencies and start FastApi app
 
 ```bash
-chmod +x setup/setup_all.sh
+chmod +x setup_all.sh
 bash setup_all.sh
 ```
    
-5.	Open (Local adress)[http://127.0.0.1:8000/static/index.html] in a browser and test predictions.
+4.	Open (Local adress)[http://127.0.0.1:8000/static/index.html] in a browser and test predictions.
 
 ## Running Spark Predictions
 	•	Spark models (RandomForest and LinearRegression) are already trained and located in the models/ folder
