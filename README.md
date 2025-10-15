@@ -67,7 +67,8 @@ bash setup_all.sh
 
 ## Running Spark Predictions
 	•	Spark models (RandomForest and LinearRegression) are already trained and located in the models/ folder
-	•	The predict_energy function in fastapi_app/spark_predict.py uses these models and normalizes features using the training dataset statistics
+	•	The predict_energy function in fastapi_app/spark_predict.py uses these models 
+		and normalizes features using the training dataset statistics
 	•	Data does not need to be loaded from MongoDB for prediction – the CSV is used locally
 
   
