@@ -7,30 +7,31 @@ This project enables energy consumption prediction based on weather and historic
 ## Project Structure
 ```bash
   .
-  └── energy_consumption_prediction/
-      ├── data/
-      │   └── smart_meter_data.csv
-      ├── fastapi_app/
-      │   ├── static/
-      │   │   ├── lr_prediction.png
-      │   │   └── rf_prediction.png
-      │   ├── database.py
-      │   ├── main.py
-      │   ├── models.py
-      │   ├── spark_predict.py
-      │   ├── requirements.txt
-      │   └── spark_results.json
-      ├── frontend/
-      │   ├── index.html
-      │   ├── style.css
-      │   └── script.js
-      ├── models
-      ├── setup/
-      │   └── setup_mongo.py
-      ├── venv
-      ├── analysis.ipynb
-      └── requirements.txt
-      └── README.md
+└── energy_consumption_prediction/
+    ├── data/
+    │   └── smart_meter_data.csv
+    ├── fastapi_app/
+    │   ├── images/
+    │   │   ├── lr_prediction.png
+    │   │   └── rf_prediction.png
+    │   ├── database.py
+    │   ├── main.py
+    │   ├── models.py
+    │   ├── spark_predict.py
+    │   ├── requirements.txt
+    │   └── spark_results.json
+    ├── frontend/
+    │   ├── index.html
+    │   ├── style.css
+    │   └── script.js
+    ├── models
+    ├── setup/
+    │   └── setup_mongo.py
+    ├── venv
+    ├── analysis.ipynb
+    ├── requirements.txt
+    ├── run_all.sh
+    └── README.md
 ```
   ---
 
