@@ -64,7 +64,8 @@ This project enables energy consumption prediction based on weather and historic
 3. Run setup script to resolve dependencies and start FastApi app
 
 ```bash
-bash setup/setup_all.sh
+chmod +x setup/setup_all.sh
+bash setup_all.sh
 ```
    
 5.	Open (Local adress)[http://127.0.0.1:8000/static/index.html] in a browser and test predictions.
