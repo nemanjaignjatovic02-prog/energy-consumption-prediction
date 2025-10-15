@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Energy Consumption Prediction Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="/static/script.js" defer></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <h1>Energy Consumption Prediction Dashboard</h1>
+
+        <div class="content">
+            <!-- LEFT PANEL: FORM -->
+            <div class="input-panel">
+                <h2>Input Parameters</h2>
+
+                <div class="form-group">
+                    <label for="Temperature" class="tooltip">
+                        Temperature (°C):
+                        <span class="tooltiptext">Current temperature in degrees Celsius</span>
+                    </label>
+                    <input id="Temperature" type="number" value="20">
+                </div>
+
+                <div class="form-group">
+                    <label for="Humidity" class="tooltip">
+                        Humidity (%):
+                        <span class="tooltiptext">Current humidity percentage</span>
+                    </label>
+                    <input id="Humidity" type="number" value="60">
+                </div>
+
+                <div class="form-group">
+                    <label for="Wind_Speed" class="tooltip">
+                        Wind Speed (m/s):
+                        <span class="tooltiptext">Current wind speed in meters per second</span>
+                    </label>
+                    <input id="Wind_Speed" type="number" value="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="Avg_Past_Consumption" class="tooltip">
+                        Average Past Consumption (kWh):
+                        <span class="tooltiptext">Average energy consumption over a past period of time in kWh</span>
+                    </label>
+                    <input id="Avg_Past_Consumption" type="number" value="250">
+                </div>
+
+                <div class="form-group">
+                    <label for="hour" class="tooltip">
+                        Hour (0–23):
+                        <span class="tooltiptext">An hour in which the consumption should be predicted (0-23)</span>
+                    </label>
+                    <input id="hour" type="number" value="14">
+                </div>
+
+                <div class="form-group">
+                    <label for="dayofweek" class="tooltip">
+                        Day of Week (1–7):
+                        <span class="tooltiptext">Current day of the week (1 = monday, 7 = sunday).</span>
+                    </label>
+                    <input id="dayofweek" type="number" value="3">
+                </div>
+
+                <button id="predictBtn">Predict</button>
+
+                <div class="result-box" id="result">
+                    Predictions will appear here.
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: CHARTS -->
+            <div class="charts-panel">
+                <div class="chart-card">
+                    <h3 class="tooltip">
+                        Linear Regression Predictions vs Real Values
+                        <span class="tooltiptext">
+                            Trained on Kaggle Smart Meters dataset.
+                            <a href="https://www.kaggle.com/datasets/ziya07/smart-meter-electricity-consumption-dataset?resource=download"
+                                target="_blank" style="color:#fff;text-decoration:underline;">Download dataset here</a>
+                        </span>
+                    </h3>
+
+                    <img src="/images/lr_prediction.png" alt="Linear Regression Prediction" />
+                </div>
+
+                <div class="chart-card">
+                    <h3 class="tooltip">
+                        Random Forest Predictions vs Real Values
+                        <span class="tooltiptext">
+                            Trained on Kaggle Smart Meters dataset.
+                            <a href="https://www.kaggle.com/datasets/ziya07/smart-meter-electricity-consumption-dataset?resource=download"
+                                target="_blank" style="color:#fff;text-decoration:underline;">Download dataset here</a>
+                        </span>
+                    </h3>
+                    <img src="/images/rf_prediction.png" alt="Random Forest Prediction" />
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Nemanja Ignjatović - Faculty of Sciences and Mathematics, University of Niš 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        const backendURL = "http://127.0.0.1:8000/predict";
+
+        document.getElementById("predictBtn").addEventListener("click", async () => {
+            const data = {
+                Temperature: parseFloat(document.getElementById("Temperature").value),
+                Humidity: parseFloat(document.getElementById("Humidity").value),
+                Wind_Speed: parseFloat(document.getElementById("Wind_Speed").value),
+                Avg_Past_Consumption: parseFloat(document.getElementById("Avg_Past_Consumption").value),
+                hour: parseInt(document.getElementById("hour").value),
+                dayofweek: parseInt(document.getElementById("dayofweek").value)
+            };
+
+            try {
+                const response = await fetch(backendURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) throw new Error("Server returned error " + response.status);
+
+                const result = await response.json();
+                document.getElementById("result").innerHTML = `
+                <div class="prediction-text">
+                    <strong>Predicted Consumption (LR):</strong> 
+                    <span style="color:red;">${(result.predicted_consumption_lr * 1000).toFixed(2)} KWh</span><br>
+                    <strong>Predicted Consumption (RF):</strong> 
+                    <span style="color:green;">${(result.predicted_consumption_rf * 1000).toFixed(2)} KWh</span>
+                </div>`;
+            } catch (err) {
+                console.error("Error:", err);
+                document.getElementById("result").textContent = "Prediction Error: " + err.message;
+            }
+        });
+    </script>
+</body>
+
+</html>
