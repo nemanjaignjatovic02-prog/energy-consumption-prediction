@@ -56,20 +56,14 @@ This project enables energy consumption prediction based on weather and historic
 	mongod --dbpath /path/to/your/db
 ```
 
-2. Start the virtual environment that includes all the necessary packages
-
-```bash
-	source venv/bin/activate
-```
-
-3. Run setup script to resolve dependencies and start FastApi app
+2. Run setup script to resolve dependencies, setup virtual environment and start FastApi app
 
 ```bash
 chmod +x setup_all.sh
 bash setup_all.sh
 ```
    
-4.	Open (Local adress)[http://127.0.0.1:8000/static/index.html] in a browser and test predictions.
+3.	Open (Local adress)[http://127.0.0.1:8000/static/index.html] in a browser and test predictions.
 
 ## Running Spark Predictions
 	•	Spark models (RandomForest and LinearRegression) are already trained and located in the models/ folder
